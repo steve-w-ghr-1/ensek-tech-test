@@ -1,0 +1,26 @@
+{
+  "electric": {
+    "energy_id": 3,
+    "price_per_unit": 0.47,
+    "quantity_of_units": 4322,
+    "unit_type": "kWh"
+  },
+  "gas": {
+    "energy_id": 1,
+    "price_per_unit": 0.34,
+    "quantity_of_units": 3000,
+    "unit_type": "m³"
+  },
+  "nuclear": {
+    "energy_id": 2,
+    "price_per_unit": 0.56,
+    "quantity_of_units": 0,
+    "unit_type": "MW"
+  },
+  "oil": {
+    "energy_id": 4,
+    "price_per_unit": 0.5,
+    "quantity_of_units": 20,
+    "unit_type": "Litres"
+  }
+}

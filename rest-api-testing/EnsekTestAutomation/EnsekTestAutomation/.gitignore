@@ -1,0 +1,32 @@
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+
+# VS settings
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+coverage/
+
+# Logs
+*.log
+
+# Others
+*.nupkg
+*.snupkg
+*.cache
+
+# Environment files
+.env
+appsettings.Development.json
+
+# Feature Files
+*.feature.cs
