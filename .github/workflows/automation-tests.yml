@@ -26,15 +26,15 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore EnsekTestAutomation sln
-        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
+        working-directory: rest-api-testing/EnsekTestAutomation
 
       - name: Build solution
         run: dotnet build EnsekTestAutomation.sln --no-restore --configuration Release
-        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
+        working-directory: rest-api-testing/EnsekTestAutomation
 
       - name: Run tests
         run: dotnet test EnsekTestAutomation.sln --logger "trx" --results-directory ./TestResults --no-build --verbosity normal --configuration Release
-        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
+        working-directory: rest-api-testing/EnsekTestAutomation
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
