@@ -26,15 +26,15 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore EnsekTestAutomation sln
-        working-directory: EnsekTestAutomation
+        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
 
       - name: Build solution
         run: dotnet build EnsekTestAutomation.sln --no-restore --configuration Release
-        working-directory: EnsekTestAutomation
+        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
 
       - name: Run tests
         run: dotnet test EnsekTestAutomation.sln --logger "trx" --results-directory ./TestResults --no-build --verbosity normal --configuration Release
-        working-directory: EnsekTestAutomation
+        working-directory: ensek-tech-test/rest-api-testing/EnsekTestAutomation
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
@@ -43,21 +43,3 @@ jobs:
           path: '**/TestResults/*.trx'
           reporter: dotnet-trx
         
-#      - name: Publish Test Results
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: test-results
-#          path: '**/TestResults/**/*.trx'
-
-#      - name: Install ReportGenerator
-#        run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
-#      - name: Generate Test Report
-#        run: reportgenerator -reports:EnsekTestAutomation/TestResults/**/*.trx -targetdir:TestReport -reporttypes:Html
-
-#      - name: Upload HTML Test Report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: html-test-report
-#          path: TestReport
