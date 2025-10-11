@@ -25,7 +25,7 @@ jobs:
           dotnet-version: '9.0.305'
 
       - name: Restore dependencies
-        run: dotnet restore EnsekTestAutomation sln
+        run: dotnet restore EnsekTestAutomation.sln
         working-directory: rest-api-testing/EnsekTestAutomation
 
       - name: Build solution
