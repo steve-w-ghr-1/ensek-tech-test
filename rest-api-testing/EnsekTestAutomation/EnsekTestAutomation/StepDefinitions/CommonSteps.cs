@@ -66,7 +66,8 @@ public class CommonSteps
             switch (expectedValue)
             {
                 case "[today]":
-                    if (!DateTime.TryParse(apiActualResponseBodyKeyValue, out var parsedTime)) throw new InvalidOperationException($">>>> Error with DateTime for order {row[0]}");
+                    if (!DateTime.TryParse(apiActualResponseBodyKeyValue, out var parsedTime)) 
+                        throw new InvalidOperationException($">>>> Error with DateTime for order {row[0]}");
                     parsedTime.ToUniversalTime().Date.Should().Be(DateTime.UtcNow.Date);
                     //TODO: check time also with 1 minute
                     break;
@@ -84,5 +85,12 @@ public class CommonSteps
                                                  throw new InvalidOperationException());
         var expectedApiResponseBody = FileReadHelper.ReadFile(fileName);
         JsonHelper.CompareJson(expectedApiResponseBody, actualApiResponseBody,false);
+    }
+    
+    //added - primarily to support that a response was deserialised
+    public void VerifyResponseBody(string fileName, JToken actualApiResponseBody, bool isArrayOrderIgnored = true)
+    {
+        var expectedApiResponseBody = FileReadHelper.ReadFile(fileName);
+        JsonHelper.CompareJson(expectedApiResponseBody, actualApiResponseBody, isArrayOrderIgnored);
     }
 }

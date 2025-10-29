@@ -24,7 +24,8 @@ public class UpdateEnergySteps
         var updatedRequestBody = JsonHelper.UpdateJson(requestPayload, requestBodyDetails);
         
         // extract the orderId to set into the endpoint resource
-        var orderId = updatedRequestBody["id"].ToString();
+        var orderId = JsonHelper.GetValue(updatedRequestBody, "id") ?? 
+                      throw new ArgumentNullException("OrderId not found");
         
         var baseUrl = Configuration.BaseUrls["ensekTestApiApp"];
         var resource = $"orders/{orderId}";

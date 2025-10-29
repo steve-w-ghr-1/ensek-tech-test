@@ -39,7 +39,7 @@ public static class JsonHelper
             }
         }
         
-        return jsonPayload;
+        return jsonPayload!;
     }
 
     private static object? ConvertToJsonType(string input, JTokenType targetType)
@@ -71,7 +71,7 @@ public static class JsonHelper
 
         try
         {
-            return jsonPayload.SelectToken(path, errorWhenNoMatch: false).ToString();
+            return jsonPayload.SelectToken(path, errorWhenNoMatch: false)?.ToString();
         }
         catch
         {

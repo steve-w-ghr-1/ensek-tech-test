@@ -4,6 +4,7 @@ namespace EnsekTestAutomation.Utils;
 
 public static class FileReadHelper
 {
+    // I have assumed all json here, so either ok as is, detect extension, explicit file read methods by type, or return as string and parse it
     public static JToken ReadFile(string fileName)
     {
         var filePath = Path.Combine(AppContext.BaseDirectory, "Data", fileName);

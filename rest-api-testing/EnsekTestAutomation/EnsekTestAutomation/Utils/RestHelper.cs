@@ -3,13 +3,10 @@ using DataTable = Reqnroll.DataTable;
 
 namespace EnsekTestAutomation.Utils;
 //TODO: pull out logging into method
-//TODO - SetHttpClient - add any applicable options, like max timeout
-//TODO - look at reducing methods for put/post including passing headers or not
 
 public class RestHelper
 {
-    //get http client from restSharp
-    private RestClient _client;
+    private RestClient _client = null!;
 
     public void SetHttpClient(string baseUrl)
     {
@@ -28,6 +25,26 @@ public class RestHelper
         Console.WriteLine($">>>>> Response {response.Content}");
         return response;
     }
+    
+    //model approach to fail faster / get some core checks for free
+    // not imposing success / fail checks as limits scenarios
+    // note to self also have to be careful on models for optional stuff
+    public async Task<T> SendGetRequestModelExample<T>(string resource)
+    {
+        var request = new RestRequest(resource, Method.Get);
+        Console.WriteLine($">>>>> Request Resource: {request.Resource}");
+        
+        RestResponse<T> response = await _client.ExecuteAsync<T>(request);
+        Console.WriteLine($">>>>> Response {response.Content}");
+        if (response.Data == null)
+        {
+            throw new Exception(">>>>> Deserialization failed: response data is null.");
+        }
+
+        Console.WriteLine($">>>>> Response {response.Content}");
+        return response.Data;
+    }
+    
     
     public async Task<RestResponse> SendPostRequest(string resource, string? requestPayload, DataTable? headers)
     {

@@ -52,7 +52,10 @@ public class BuyEnergySteps
 
     public string ExtractOrderNumber(RestResponse apiPurchaseResponse)
     {
-        var responseMessage = JsonHelper.GetValue(JToken.Parse(apiPurchaseResponse.Content), "message");
+        ArgumentNullException.ThrowIfNull(apiPurchaseResponse, nameof(apiPurchaseResponse)); 
+        var apiResponseContent = apiPurchaseResponse.Content ?? throw new ArgumentNullException(nameof(apiPurchaseResponse));
+        var responseMessage = JsonHelper.GetValue(JToken.Parse(apiResponseContent), "message")
+            ?? throw new ArgumentNullException($"No response message found: {apiPurchaseResponse}");
         var guidMatch = Regex.Match(responseMessage, @"\b[a-fA-F0-9]{8}\b(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}\b");
 
         if (!guidMatch.Success)

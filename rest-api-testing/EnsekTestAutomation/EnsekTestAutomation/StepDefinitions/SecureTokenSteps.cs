@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using EnsekTestAutomation.Utils;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -31,13 +32,15 @@ public class SecureTokenSteps
         _restHelper.SetHttpClient(baseUrl);
         
         var requestPayload = JToken.Parse(FileReadHelper.ReadFile(fileName).ToString());
-        var response = await _restHelper.SendPostRequest(resource, requestPayload.ToString(), null);
+        var response = await _restHelper.SendPostRequest(resource, requestPayload.ToString(), null) ??
+                       throw new ArgumentNullException("The response was null");
         _scenarioContext["ApiResponse"] = response;
         
         //TODO reference to a method / step to check result
         var responseStatusCode = Convert.ToInt32(response.StatusCode);
         responseStatusCode.Should().Be(200);
 
+        Debug.Assert(response.Content != null, "response.Content != null");
         var token = JsonHelper.GetValue(JToken.Parse(response.Content), "access_token");
         _scenarioContext["token"] = token;
     }
